@@ -1,0 +1,97 @@
+5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="listing-overarch">
+    {{#results}}
+      {{#.}}
+        <div class="listing-photo-gallery">
+          <div id="listing-current-photo">
+          </div>
+          <div class="listing-detail-photos">
+            <ul>
+            {{#Media}}
+              <li><img class="listing-direct-img" src="{{file}}" /></li>
+            {{/Media}}
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="listing-address-information">
+          <p>{{location.address.StreetNumber}} {{location.address.StreetName}} | {{location.address.City}}, {{location.address.StateOrProvince}} {{location.address.PostalCode}}</p>
+          <p>${{listingPricing.listPrice}}</p>
+        </div>
+
+        <div class="listing-property-description">
+          <h1>Property Description</h1>
+          <p>{{{remarks.publicRemarks}}}</p>
+        </div>
+
+        <div class="listing-full-block">
+          <div class="listing-property-full-address">
+            <h1>Property Details for {{location.address.StreetNumber}} {{location.address.StreetName}}, {{location.address.City}}, {{location.address.StateOrProvince}} {{location.address.PostalCode}}</h1>
+            <ul>
+              <li>Property type: {{property.Type}}, {{property.SubType}}</li>
+              <li>Bedrooms total: {{structure.BedroomsTotal}}</li>
+              <li>Bathrooms total: {{structure.BathroomsTotal}}</li>
+              <li>MLS&reg; #: {{ListingId}}</li>
+            </ul>
+          </div>
+
+          <div class="listing-interior-information">
+            <h1>Interior Information</h1>
+            <ul>
+              <li>Bedrooms total: {{structure.BedroomsTotal}}</li>
+              <li>Bathrooms total: {{structure.BathroomsTotal}}</li>
+              <li>Bathrooms (full): {{structure.BathroomsFull}}</li>
+              <li>Bathrooms (half): {{structure.BathroomsHalf}}</li>
+              <li>Bathrooms (three-quarter): {{structure.BathroomsThreeQuarter}}</li>
+              <li>Living Area: {{structure.livingArea}}</li>
+              <li>Cars: {{structure.carsTotal}}</li>
+            </ul>
+          </div>
+
+          <div class="listing-features">
+            <h1>Features</h1>
+            <ul>
+            {{#each Features}}
+              <li>{{@key}}: {{this}}</li>
+            {{/each}}
+            </ul>
+          </div>
+
+          <div class="listing-school-information">
+            <h1>School Information</h1>
+            <ul>
+              <li>Elementary: {{location.school.elementarySchool}}</li>
+              <li>Middle: {{location.school.middleOrJuniorSchool}}</li>
+              <li>High: {{location.school.highSchool}}</li>
+            </ul>
+          </div>
+
+          <div class="listing-agent">
+            <h1>Listing Agent</h1>
+            <ul>
+              <li>Agent Name: {{agentOffice.ListAgent.FullName}}</li>
+              <li>Agent Phone: {{agentOffice.ListAgent.OfficePhone}}</li>
+              <li>Listing Office: {{agentOffice.ListOffice.Name}}</li>
+              <li>Listing Office Phone: {{agentOffice.ListOffice.Phone}}</li>
+              <li>Listing Office Email: <a href="mailto:{{agentOffice.ListOffice.Email}}?Subject=MLS%20#%20{{ListingId}}" target="_top">{{agentOffice.ListOffice.Email}}</a></li>
+            </ul>
+          </div>
+        </div>
+      {{/.}}
+    {{/results}}
+</div>
+<script type="text/javascript">
+  function add($) {
+   var src = $( $('.listing-direct-img').first() ).attr('src');
+   $('#listing-current-photo').html( '<img id="listing-inner-img" src="' + src + '" />' );
+
+   $( ".listing-direct-img" ).click(function() {
+    $('#listing-inner-img').attr("src", $(this).attr('src'));
+  });
+
+  $("img").error(function () {
+    $(this).css({visibility:"hidden"});
+  });
+  }
+  add(window.jQuery);
+</script>$SPRING$

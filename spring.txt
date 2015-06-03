@@ -1,0 +1,63 @@
+5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="spring-slider" style="height: 347px !important;">
+  <ul>
+    {{#results}}
+      {{#.}}
+        <li>
+          <div style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 347px;
+            background-image: url('{{Media.1.file}}');
+            background-size: cover;
+            background-position: center;
+          "></div>
+
+          <div class="caption-wrap">
+            {{#location}}{{#address}}
+              <div class="caption">
+                <div class="featHead">
+                  {{StreetNumber}} {{StreetName}}<br>
+                  {{#listingPricing}}
+                    ${{listPrice}}
+                  {{/listingPricing}}
+                </div>
+              </div>
+            {{/address}}{{/location}}
+            <div class="caption-desc" style="height: 90px; overflow-y: scroll;">
+              {{#remarks}}
+                {{publicRemarks}}
+              {{/remarks}}
+              <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}">Read more...</a>
+            </div>
+            <div class="caption-foot">
+              <img src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png" style="
+                width: 38px;
+                height: 17px;
+                margin-top: 10px;
+                position: relative;
+              ">
+            </div>
+          </div>
+        </li>
+      {{/.}}
+    {{/results}}
+  </ul>
+</div>
+
+<style>
+  img.feat-frame {
+    z-index: 1;
+  }
+</style>
+
+<script>
+  SpringPlugin
+    .jQuery(".spring-slider")
+    .unslider({dots: true, delay: 7000});
+</script>$SPRING$622627
+625724
+620786
+626609
+626184

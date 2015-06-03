@@ -1,0 +1,41 @@
+5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="quick-search">
+  <div class="clear-line" />
+  <ul class="quick-search-listings">
+    {{#results}}
+      {{#.}}
+        <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}"><li class="quick-search-listing">
+          <img class="quick-search-photo-wrapper" src="{{Media.1.file}}" />
+          {{#listingPricing}}
+            <p class="quick-search-price">${{listPrice}}</p>
+          {{/listingPricing}}
+
+          {{#location}}{{#address}}
+            <p class="quick-search-address">{{StreetNumber}} {{StreetName}}</p>
+            <p class="quick-search-address">{{City}}, {{StateOrProvince}}</p>
+          {{/address}}{{/location}}
+
+          {{#structure}}
+            <p class="quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
+          {{/structure}}`
+
+          {{#property}}
+            <p>Property Type: {{Type}}, {{SubType}}</p>
+          {{/property}}
+
+          {{#agentOffice}}
+            {{#ListAgent}}
+              <p>Courtesy of {{{FullName}}},
+            {{/ListAgent}}
+            {{#ListOffice}}
+              {{{Name}}}</p>
+            {{/ListOffice}}
+          {{/agentOffice}}
+        </li></a>
+      {{/.}}
+    {{/results}}
+    {{^results}}
+      <p>No listings available at this time.</p>
+    {{/results}}
+  </ul>
+  <div class="clear-line" />
+</div>$SPRING$

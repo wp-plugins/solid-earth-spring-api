@@ -1,0 +1,95 @@
+.listing-overarch {
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 12px !important;
+}
+
+.listing-overarch div {
+  margin-bottom: 10px;
+}
+
+.listing-overarch h1{
+  margin-top: 28px;
+  margin-left: 10px;
+  line-height: 16px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  color: #383838;
+}
+
+.listing-property-description p{
+  margin-top: 15px;
+  line-height: 21px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #515151;
+}
+
+.listing-address-information {
+  line-height: 14px;
+  font-size: 16px;
+  color: #383838;
+  font-weight: bold;
+  border-left: 3px double #ddd;
+}
+
+.listing-full-block div{
+  border-left: 3px double #ddd;
+}
+
+.listing-direct-img {
+  max-width: 97.5%;
+}
+
+#listing-inner-img {
+  max-width: 97.5%;
+}
+
+.listing-detail-photos {
+  float: right;
+  width: 50%;
+}
+
+.listing-detail-photos ul{
+  max-width: 100%;
+  list-style-type: none;
+}
+
+.listing-detail-photos li {
+  width: 20%;
+  display: inline-block;
+}
+
+#listing-current-photo {
+  float: left;
+  width: 50%;
+}
+
+.listing-property-full-address {
+  float: left;
+  width: 50%;
+  max-width: 45%;
+}
+
+.listing-interior-information {
+  float: right;
+  width: 50%;
+  max-width: 45%;
+}
+
+.listing-features {
+  float: left;
+  width: 50%;
+  max-width: 45%;
+}
+
+.listing-school-information {
+  float: right;
+  width: 50%;
+  max-width: 45%;
+}
+
+.listing-agent {
+  float: right;
+  width: 50%;
+  max-width: 45%;
+}

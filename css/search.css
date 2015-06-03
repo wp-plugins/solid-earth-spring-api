@@ -1,0 +1,233 @@
+.quick-search {
+  margin: 21px 0px !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 12px !important;
+}
+
+.quick-search-form input[type="text"]{
+  width: 100%;
+}
+
+.quick-search-form select{
+  width: 100px;
+}
+
+.quick-search-pages ul{
+  list-style-type: none;
+  overflow: hidden;
+  width:200px;
+}
+
+.quick-left-float {
+  float: left;
+}
+
+.quick-right-float {
+  float: right;
+}
+
+.quick-search-pages li{
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.quick-search-listings ul{
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.quick-search-listings li{
+  color: black;
+  display: block;
+  float: left;
+  border: 1px solid black;
+  width: 193px;
+  height: 350px;
+  overflow-y: auto;
+  margin: 20px;
+}
+
+.quick-search-listing:hover{
+  background-color: #dedede;
+}
+
+.clear-line {
+  clear: both;
+}
+
+.quick-search-background {
+  border-bottom: 1px solid #dedede !important;
+  line-height: 22px !important;
+  font-size: 11px !important;
+  color: #606060 !important;
+  font-weight: bold !important;
+  text-align: right !important;
+  background-color: #f7f7f7 !important;
+}
+
+.quick-search-photo-wrapper {
+  position: relative !important;
+  margin: 1px !important;
+  outline: 1px solid #afafaf !important;
+  border: 1px solid #fff !important;
+  width: 193px !important;
+  height: 153px !important;
+  background: url('images/no-photo.png') 0px 0px no-repeat !important;
+  overflow: hidden !important;
+}
+
+.quick-search-address {
+  margin: 0px;
+}
+
+.quick-search-price {
+  margin: 2px;
+}
+
+.quick-search-rooms {
+  border-top-style: dotted;
+  border-top-width: 1px;
+  margin-bottom: 1px;
+}
+
+.quick-search-form {
+  width: 100%;
+  display: block;
+}
+
+.advanced-search-link {
+  position: relative !important;
+  display: inline-block;
+  margin-top: 14px !important;
+  padding-left: 15px !important;
+  line-height: 10px !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 11px !important;
+  color: #333 !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  text-decoration: none !important;
+}
+
+.advanced-search-form {
+  background-color: #f2f2f2 !important;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.advanced-search-form input {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+.advanced-search-form input:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.advanced-search-submit {
+  clear: none;
+  color: black !important;
+  outline: 0px;
+  border: 0px;
+  border-bottom: none !important;
+  margin: 0px;
+  padding: 0px !important;
+  border-spacing: 0px;
+  min-width: 0px;
+  max-width: none;
+  min-height: 0px;
+  max-height: none;
+  height: 20px;
+  font-weight: normal;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  text-align: left;
+  list-style-type: none;
+  background: #b0b0b0 !important;
+  border-collapse: separate;
+  vertical-align: baseline;
+  -khtml-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  box-sizing: content-box;
+  cursor: pointer;
+  cursor: hand;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.advanced-search-text-entries {
+  margin-left: 2%;
+  float: left;
+  width: 60%;
+}
+
+.advanced-search-text-entries input, select {
+  width: 90%;
+  margin: 2px;
+}
+
+.advanted-search-min-max {
+  float: right;
+  width: 40%;
+}
+
+.advanced-search-submit:hover {
+  background-color: #d0d0d0 !important;
+}
+
+.advanced-top-portion {
+  margin-top: 10px;
+  height: 110px;
+  border-bottom: 1px solid #dedede;
+}
+
+#advanced-search-min-bathrooms {
+  float: left;
+  width: 17%;
+}
+
+#advanced-min_bedrooms {
+  float: right;
+  width: 17%;
+}
+
+#advaned-min-list-price {
+  float: left;
+  width: 17%;
+}
+
+#advanced-max-list-price {
+  float: right;
+  width: 17%;
+}
+
+.clearfix:after {
+   content: ".";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+#quick-property-select {
+  width: 100%;
+}
+
+#find-home-button {
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+}
