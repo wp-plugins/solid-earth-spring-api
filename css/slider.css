@@ -5,6 +5,10 @@
   background-color: #eee;
 }
 
+.feat-frame {
+  pointer-events: none;
+}
+
 .spring-slider ul {
   margin: 0;
 

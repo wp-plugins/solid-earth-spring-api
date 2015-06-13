@@ -39,6 +39,12 @@ API docs are kinda old, we're currently using an undocumented API parameter for 
 [full-result] : Renders the full details of a particular listing
 [agent-listing name=""] : Displays all the name of an agent with a particular name within the defined site region
 
+# Deployment
+
+The file is enormous when deployed with everything in the plugin directory, so in the directory above, run the following command, substituting if you have named the project something other than spring_api to remove the node modules from the final deploy.
+
+zip -r spring_api.zip spring_api/* -x /spring_api/node_modules/*
+
 # Hints
 
 The initial developer of the plugin was obsessessed with Coffeescript, so if you need to edit the js files, hit the coffee folder instead then edit the Coffeescript with Gulp running in the background to automatically build the Coffeescript into Javascript.

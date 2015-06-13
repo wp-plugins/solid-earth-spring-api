@@ -1,4 +1,5 @@
 5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="quick-search">
+  {{#pageInfo.named}}
   <div class="search-options" style="float:right;">
     <select form="advanced-search-form" name="sorting" id="sorting-select" onchange="this.form.submit()">
       <option value="ListPrice">Price Low to High</option>
@@ -19,7 +20,14 @@
             <li><a style="text-decoration:underline !important;" href="{{{url}}}">{{num}}</a></li>
           {{/selected}}
           {{^selected}}
-            <li><a href="{{{url}}}">{{num}}</a></li>
+            {{#prefix}}<span class="ellipsis"> ... </span>{{/prefix}}
+            {{#hidden}}
+              <li style="display: none"><a href="{{{url}}}">{{num}}</a></li>
+            {{/hidden}}
+            {{^hidden}}
+              <li><a href="{{{url}}}">{{num}}</a></li>
+            {{/hidden}}
+            {{#postfix}}<span class="ellipsis"> ... </span>{{/postfix}}
           {{/selected}}
         {{#next}}
           <li><a href="{{{.}}}">Next</a></li>
@@ -28,6 +36,7 @@
     </ul>
   </div>
   <div class="clear-line" />
+  {{/pageInfo.named}}
   <ul class="quick-search-listings">
     {{#results}}
       <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}"><li class="quick-search-listing">
@@ -54,31 +63,40 @@
             <p>Courtesy of {{FullName}},
           {{/ListAgent}}
           {{#ListOffice}}
-            {{Name}}</p>
+            {{{Name}}}</p>
           {{/ListOffice}}
         {{/agentOffice}}
       </li></a>
     {{/results}}
   </ul>
   <div class="clear-line" />
-  <div class="quick-search-background">
-    <ul class="quick-search-pages">
-      <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
-      {{#pages}}
-        {{#previous}}
-          <li><a href="{{{.}}}">Previous<a/></li>
-        {{/previous}}
-          {{#selected}}
-            <li><a style="text-decoration:underline !important;" href="{{{url}}}">{{num}}</a></li>
-          {{/selected}}
-          {{^selected}}
-            <li><a href="{{{url}}}">{{num}}</a></li>
-          {{/selected}}
-        {{#next}}
-          <li><a href="{{{.}}}">Next</a></li>
-        {{/next}}
-      {{/pages}}
-    </ul>
-  </div>
+  {{#pageInfo.named}}
+    <div class="quick-search-background">
+      <ul class="quick-search-pages">
+        <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
+        {{#pages}}
+          {{#previous}}
+            <li><a href="{{{.}}}">Previous<a/></li>
+          {{/previous}}
+            {{#selected}}
+              <li><a style="text-decoration:underline !important;" href="{{{url}}}">{{num}}</a></li>
+            {{/selected}}
+            {{^selected}}
+              {{#prefix}}<span class="ellipsis"> ... </span>{{/prefix}}
+              {{#hidden}}
+                <li style="display: none"><a href="{{{url}}}">{{num}}</a></li>
+              {{/hidden}}
+              {{^hidden}}
+                <li><a href="{{{url}}}">{{num}}</a></li>
+              {{/hidden}}
+              {{#postfix}}<span class="ellipsis"> ... </span>{{/postfix}}
+            {{/selected}}
+          {{#next}}
+            <li><a href="{{{.}}}">Next</a></li>
+          {{/next}}
+        {{/pages}}
+      </ul>
+    </div>
+  {{/pageInfo.named}}
 </div>$SPRING$626151
 626151

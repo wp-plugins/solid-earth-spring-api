@@ -36,15 +36,15 @@ function SPRINGAPIWP_render_slider( $atts ){
 
 add_shortcode('quick-search', 'SPRINGAPIWP_render_quick_search');
 
-function SPRINGAPIWP_render_quick_search () {
-  if(isset($_GET['property_type'])) {
+function SPRINGAPIWP_render_quick_search ( $atts ) {
+  if(isset($_GET['property_type']) || isset($atts['name'])) {
     //TO DO: pin in the advanced search bar
     $data = SPRINGAPIWP_get_data('quickSearch.txt');
     $key = $data[0];
     $siteValue = $data[1];
     $template = $data[2];
 
-    $results = SPRINGAPIWP_quick_search($key, $_GET, false, $siteValue);
+    $results = SPRINGAPIWP_quick_search($key, $_GET, isset($atts["name"]) ? $atts["name"] : "" ,false, $siteValue);
 
     //currently the Solid Earth API returns 20 by default
     $solidEarthPageLength = 20;
@@ -57,15 +57,15 @@ function SPRINGAPIWP_render_quick_search () {
     $serverURLArray = explode("?", "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", 2) ;
     $server_host = $serverURLArray[0];
     $qs = "?";
-    $qs .= "quick_terms=" . $_GET['quick_terms'];
-    $qs .= "&property_type=" . $_GET['property_type'];
-    $qs .= "&keyword=" . $_GET['keyword'];
-    $qs .= "&school=" . $_GET['school'];
-    $qs .= "&min_bedrooms=" . $_GET['min_bedrooms'];
-    $qs .= "&min_bathrooms=" . $_GET['min_bathrooms'];
-    $qs .= "&min_list_price=" . $_GET['min_list_price'];
-    $qs .= "&max_list_price=" . $_GET['max_list_price'];
-    $qs .= "&sorting=" . $_GET['sorting'];
+    $qs .= "quick_terms=" . (empty($_GET['quick_terms']) ? "" : $_GET['quick_terms']);
+    $qs .= "&property_type=" . (empty($_GET['property_type']) ? "" : $_GET['property_type']);
+    $qs .= "&keyword=" . (empty($_GET['keyword']) ? "" : $_GET['keyword']);
+    $qs .= "&school=" . (empty($_GET['school']) ? "" : $_GET['school']);
+    $qs .= "&min_bedrooms=" . (empty($_GET['min_bedrooms']) ? "" : $_GET['min_bedrooms']);
+    $qs .= "&min_bathrooms=" . (empty($_GET['min_bathrooms']) ? "" : $_GET['min_bathrooms']);
+    $qs .= "&min_list_price=" . (empty($_GET['min_list_price']) ? "" : $_GET['min_list_price']);
+    $qs .= "&max_list_price=" . (empty($_GET['max_list_price']) ? "" : $_GET['max_list_price']);
+    $qs .= "&sorting=" . (empty($_GET['sorting']) ? "" : $_GET['sorting']);
     $qs .= "&pagination=";
 
     for($i=0; $i < $pageCount; $i++) {
@@ -73,18 +73,36 @@ function SPRINGAPIWP_render_quick_search () {
       $pageArray[$i]['num'] = $i + 1;
     }
 
-    if(($_GET['pagination'] -1) < 0) {
+    $pageCurrentlyOn = empty($_GET['pagination']) ? 0 : $_GET['pagination'];
+
+    $pageOffset = 3;
+    $pageLimiter = 10;
+
+    if($pageCount > $pageLimiter) {
+      $pageArray[$pageOffset]['postfix'] = true;
+      $pageArray[($pageCount - $pageOffset)]['prefix'] = true;
+
+      for($i=$pageOffset; $i < ($pageCount - $pageOffset); $i++) {
+        $pageArray[$i]['hidden'] = true;
+
+        if($i == ($pageCurrentlyOn -1) || $i == ($pageCurrentlyOn +1)) {
+          $pageArray[$i]['hidden'] = false;
+        }
+      }
+    }
+
+    if(($pageCurrentlyOn -1) < 0) {
       $pageArray[0]['previous'] = NULL;
     }
     else {
-      $pageArray[0]['previous'] = $pageArray[$_GET['pagination']-1]['url'];
+      $pageArray[0]['previous'] = $pageArray[$pageCurrentlyOn-1]['url'];
     }
 
-    if(($_GET['pagination']+1) > ($pageCount-1)) {
+    if(($pageCurrentlyOn+1) > ($pageCount-1)) {
       $pageArray[$pageCount-1]['next'] = NULL;
     }
     else {
-      $pageArray[$pageCount-1]['next'] = $pageArray[$_GET['pagination']+1]['url'];
+      $pageArray[$pageCount-1]['next'] = $pageArray[$pageCurrentlyOn+1]['url'];
     }
 
     foreach ($results["listing"] as &$res) {
@@ -102,20 +120,26 @@ function SPRINGAPIWP_render_quick_search () {
       }
     }
 
-    $pageArray[$_GET['pagination']]['selected'] = $_GET['pagination'];
+    $pageArray[$pageCurrentlyOn]['selected'] = $pageCurrentlyOn;
 
-    $rangeMax = ($_GET['pagination']+1)*$solidEarthPageLength;
+    $rangeMax = ($pageCurrentlyOn+1)*$solidEarthPageLength;
     $rangeMin = ($rangeMax - $solidEarthPageLength) + 1;
 
     if($rangeMax > $results["Count"]) {
       $rangeMax = $results["Count"];
     }
 
+    $pageGeneral['named'] = empty( $atts['name']);
     $pageGeneral['range'] = $rangeMax == 0 ? 0 : $rangeMin . '-' . $rangeMax;
     $pageGeneral['count'] = number_format($results["Count"]);
-    $pageGeneral['currentPage'] = $_GET['pagination'] + 1;
+    $pageGeneral['currentPage'] = $pageCurrentlyOn + 1;
 
-    $html = SPRINGAPIWP_search_form('advanced');
+    $html = "";
+
+    if(isset($_GET['property_type'])){
+      $html .= SPRINGAPIWP_search_form('advanced');
+    }
+
     $html .= "
       <pre class='spring-data-hidden' style='display: none !important;'>" .
         json_encode(array('pages' => $pageArray, 'pageInfo' => $pageGeneral, 'template' => base64_encode($template), 'results' => $results["listing"])) .
@@ -135,9 +159,9 @@ function SPRINGAPIWP_search_form($searchType) {
   $server_host = $serverURLArray[0];
 
   if($searchType === 'advanced') {
-    $propertyTypes = ['Single Family Residence', 'Manufactured Home', 'Condominium', 'Townhouse'];
-    $bedroomTypes = [1, 2, 3, 4, 5, 6];
-    $bathroomTypes = [1, 2, 3, 4, 5, 6];
+    $propertyTypes = array('Single Family Residence', 'Manufactured Home', 'Condominium', 'Townhouse');
+    $bedroomTypes = array(1, 2, 3, 4, 5, 6);
+    $bathroomTypes = array(1, 2, 3, 4, 5, 6);
 
     $html = '
         <form id="advanced-search-form" class="advanced-search-form clearfix" action="/search" method="GET">
@@ -329,6 +353,10 @@ function SPRINGAPIWP_render_full ( $atts ){
   $listingID = get_query_var('listingID');
 
   array_push($results, SPRINGAPIWP_spring_listing($key, $listingID, false, $siteValue));
+
+  if(isset($results[0][0]["listingPricing"]["listPrice"])) {
+    $results[0][0]["listingPricing"]["listPrice"] = number_format($results[0][0]["listingPricing"]["listPrice"]);
+  }
 
   $html = "
     <pre class='spring-data-hidden' style='display: none !important;'>

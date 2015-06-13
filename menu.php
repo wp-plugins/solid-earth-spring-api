@@ -4,7 +4,7 @@ include plugin_dir_path( __FILE__ ) . 'store.php';
 add_action('admin_menu', 'add_menu');
 
 function add_menu() {
-  add_menu_page( "Spring Slider", "Spring Slider", "publish_posts", "spring-api/main", "SPRINGAPIWP_menu", '', 6);
+  add_menu_page( "Spring IDX", "Spring IDX", "publish_posts", "spring-api/main", "SPRINGAPIWP_menu", '', 6);
   add_submenu_page( "spring-api/main", "Search", "Search", "publish_posts", "spring-api/quick", "SPRINGAPIWP_quick_menu");
   add_submenu_page( "spring-api/main", "Listing Details", "Listing Details", "publish_posts", "spring-api/listing", "SPRINGAPIWP_listing_menu");
   add_submenu_page( "spring-api/main", "Agent Listings", "Agent Listings", "publish_posts", "spring-api/agent", "SPRINGAPIWP_agent_menu");
@@ -58,25 +58,29 @@ function SPRINGAPIWP_menu() {
   }
 
   $html = '
-    <h1>SolidEarth SPRING Slider</h1>
+    <h1>Spring IDX from Solid Earth - Slider</h1>
     <form action="" method="POST">
 
       <br><br>'. SPRINGAPIWP_siteSelect($siteValue) . '
 
-      <h2>API Key:</h2>
-      <input type="text" name="apikey" value="' . $data[0] . '">
+      <h2 style="display: inline;">API Key:</h2>
+      <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
+      <br />
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
       <br>
 
       <h2>Template:</h2>
       <textarea name="template" cols="50" rows="5">' . $template . '</textarea>
 
-      <h2>Listing Keys:</h2>
+      <h2>MLS Numbers:</h2>
+      <p>Enter the MLS numbers you would like to feature in the slider feature. Listings that go off market will be skipped.</p>
       <textarea name="ids" cols="50" rows="5">' . $data[3] . '</textarea>
 
       <br>
       <input type="hidden" name="main" value="main" />
       <input type="submit">
     </form>
+    <p>For more information about signing up for API keys and other questions see <a target="_blank" href="http://www.solidearth.com">www.solidearth.com</a> and/or send an email to <a href="mailto:api@solidearth.com">api@solidearth.com</a>.</p>
   ';
 
   echo $html;
@@ -189,13 +193,15 @@ function SPRINGAPIWP_listing_menu() {
   }
 
   $html = '
-    <h1>SolidEarth Listing Details</h1>
+    <h1>Spring IDX from Solid Earth - Listing Details</h1>
     <form action="" method="POST">
 
       <br><br>' . SPRINGAPIWP_siteSelect($siteValue) . '
 
-      <h2>API Key:</h2>
-      <input type="text" name="apikey" value="' . $data[0] . '">
+      <h2 style="display: inline;">API Key:</h2>
+      <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
+      <br />
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
       <br>
 
       <h2>Template:</h2>
@@ -205,6 +211,7 @@ function SPRINGAPIWP_listing_menu() {
       <input type="hidden" name="listing" value="listing" />
       <input type="submit">
     </form>
+    <p>For more information about signing up for API keys and other questions see <a target="_blank" href="http://www.solidearth.com">www.solidearth.com</a> and/or send an email to <a href="mailto:api@solidearth.com">api@solidearth.com</a>.</p>
   ';
 
   echo $html;
@@ -318,13 +325,15 @@ function SPRINGAPIWP_quick_menu() {
   }
 
   $html = '
-    <h1>SolidEarth Search</h1>
+    <h1>Spring IDX from Solid Earth - Quick Search</h1>
     <form action="" method="POST">
 
       <br><br>' . SPRINGAPIWP_siteSelect($siteValue) . '
 
-      <h2>API Key:</h2>
-      <input type="text" name="apikey" value="' . $data[0] . '">
+      <h2 style="display: inline;">API Key:</h2>
+      <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
+      <br />
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
       <br>
 
       <h2>Template:</h2>
@@ -334,28 +343,10 @@ function SPRINGAPIWP_quick_menu() {
       <input type="hidden" name="quick" value="quick" />
       <input type="submit">
     </form>
+    <p>For more information about signing up for API keys and other questions see <a target="_blank" href="http://www.solidearth.com">www.solidearth.com</a> and/or send an email to <a href="mailto:api@solidearth.com">api@solidearth.com</a>.</p>
   ';
 
   echo $html;
-}
-
-function SPRINGAPIWP_siteSelect ( $curVal ) {
-  $siteTypes = ['gbrar', 'gcar', 'mlsbox', 'tuscar', 'mibor', 'baarmls', 'sandicor', 'rafgc'];
-  $siteSelect = '<h2>Site Select:</h2>
-  <select name="siteselect">';
-
-  foreach($siteTypes as $selectVal) {
-    if ($curVal == $selectVal) {
-      $siteSelect .= '<option value="' . $selectVal . '" selected="selected">' . $selectVal . '</option>';
-    }
-    else {
-      $siteSelect .= '<option value="' . $selectVal . '">' . $selectVal . '</option>';
-    }
-  }
-
-  $siteSelect .= '</select><br />';
-
-  return $siteSelect;
 }
 
 function SPRINGAPIWP_agent_menu() {
@@ -423,13 +414,15 @@ function SPRINGAPIWP_agent_menu() {
   }
 
   $html = '
-    <h1>SolidEarth Search</h1>
+    <h1>Spring IDX from Solid Earth - Agent Details</h1>
     <form action="" method="POST">
 
       <br><br>' . SPRINGAPIWP_siteSelect($siteValue) . '
 
-      <h2>API Key:</h2>
-      <input type="text" name="apikey" value="' . $data[0] . '">
+      <h2 style="display: inline;">API Key:</h2>
+      <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
+      <br />
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
       <br>
 
       <h2>Template:</h2>
@@ -439,9 +432,31 @@ function SPRINGAPIWP_agent_menu() {
       <input type="hidden" name="agent" value="agent" />
       <input type="submit">
     </form>
+    <p>For more information about signing up for API keys and other questions see <a target="_blank" href="http://www.solidearth.com">www.solidearth.com</a> and/or send an email to <a href="mailto:api@solidearth.com">api@solidearth.com</a>.</p>
   ';
 
   echo $html;
+}
+
+function SPRINGAPIWP_siteSelect ( $curVal ) {
+  $siteTypes = array('gbrar', 'gcar', 'mlsbox', 'tuscar', 'mibor', 'baarmls', 'sandicor', 'rafgc');
+  $siteSelect = '<h2 style="display: inline;">Site Select:</h2>
+  <p style="display: inline;">Choose the Market or Markets in which you or your customer have an MLS Membership.</p>
+  <br />
+  <select style="margin-bottom:10px;" name="siteselect">';
+
+  foreach($siteTypes as $selectVal) {
+    if ($curVal == $selectVal) {
+      $siteSelect .= '<option value="' . $selectVal . '" selected="selected">' . $selectVal . '</option>';
+    }
+    else {
+      $siteSelect .= '<option value="' . $selectVal . '">' . $selectVal . '</option>';
+    }
+  }
+
+  $siteSelect .= '</select><br />';
+
+  return $siteSelect;
 }
 
 ?>

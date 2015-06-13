@@ -27,9 +27,9 @@
             {{/address}}{{/location}}
             <div class="caption-desc" style="height: 90px; overflow-y: scroll;">
               {{#remarks}}
-                {{publicRemarks}}
+                <div class="public-remarks">{{publicRemarks}}</div>
               {{/remarks}}
-              <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}">Read more...</a>
+              <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}">Read more</a>
             </div>
             <div class="caption-foot">
               <img src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png" style="
@@ -56,6 +56,14 @@
   SpringPlugin
     .jQuery(".spring-slider")
     .unslider({dots: true, delay: 7000});
+    window.onload = function () {
+      getCaption = document.getElementsByClassName("public-remarks");
+
+      for(i=0; i<getCaption.length;i++) {
+        getCaption[i].innerHTML=getCaption[i].innerHTML.trim().substring(0,100)+'...';
+      }
+    }
+
 </script>$SPRING$622627
 625724
 620786
