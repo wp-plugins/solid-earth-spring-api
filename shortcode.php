@@ -164,10 +164,10 @@ function SPRINGAPIWP_search_form($searchType) {
     $bathroomTypes = array(1, 2, 3, 4, 5, 6);
 
     $html = '
-        <form id="advanced-search-form" class="advanced-search-form clearfix" action="/search" method="GET">
-          <div class="advanced-top-portion" id="advanced-top-portion">
-            <div class="advanced-search-text-entries">
-              <select id="advanced-property-select" name="property_type" data-placeholder="Property Type">
+        <form id="spring-advanced-search-form" class="spring-advanced-search-form spring-clearfix" action="/search" method="GET">
+          <div class="spring-advanced-top-portion" id="spring-advanced-top-portion">
+            <div class="spring-advanced-search-text-entries">
+              <select id="spring-advanced-property-select" name="property_type" data-placeholder="Property Type">
                 <option value="" disabled="">Property Type</option>';
 
                 foreach($propertyTypes as $value) {
@@ -181,16 +181,16 @@ function SPRINGAPIWP_search_form($searchType) {
               $html .= '</select>
               <br />
 
-              <input type="text" id="advanced-quick_terms" name="quick_terms" value="' . $_GET['quick_terms'] . '" placeholder="City, Zip, Neighborhood">
+              <input type="text" id="spring-advanced-quick-terms" name="quick_terms" value="' . $_GET['quick_terms'] . '" placeholder="City, Zip, Neighborhood">
               <br />
 
-              <input type="text" id="advanced-keyword" name="keyword" value="' . $_GET['keyword'] . '" placeholder="Address, MLS#, Keywords">
+              <input type="text" id="spring-advanced-keyword" name="keyword" value="' . $_GET['keyword'] . '" placeholder="Address, MLS#, Keywords">
               <br />
-              <input type="text" id="advanced-school" style="display:none" id="advanced-school" name="school" value="' . $_GET['school'] . '" placeholder="School">
+              <input type="text" id="spring-advanced-school" style="display:none" name="school" value="' . $_GET['school'] . '" placeholder="School">
             </div>
 
-            <div class="advanced-search-min-max">
-              <select id="advanced-min_bedrooms" name="min_bedrooms">
+            <div class="spring-advanced-search-min-max">
+              <select id="spring-advanced-min-bedrooms" name="min_bedrooms">
                 <option value="0" selected="selected">Min Beds</option><option value="0">none</option>';
 
                 foreach ($bedroomTypes as $value) {
@@ -204,7 +204,7 @@ function SPRINGAPIWP_search_form($searchType) {
 
               $html .= '</select>
 
-              <select id="advanced-search-min-bathrooms" name="min_bathrooms">
+              <select id="spring-advanced-search-min-bathrooms" name="min_bathrooms">
                 <option value="0" selected="selected">Min Baths</option><option value="0">none</option>';
 
                 foreach ($bathroomTypes as $value) {
@@ -220,7 +220,7 @@ function SPRINGAPIWP_search_form($searchType) {
 
               <br />
 
-              <select id="advaned-min-list-price" name="min_list_price">
+              <select id="spring-advanced-min-list-price" name="min_list_price">
                 <option value="0" selected="selected">Min Price</option>
                 <option value="0">none</option>';
 
@@ -235,7 +235,7 @@ function SPRINGAPIWP_search_form($searchType) {
 
               $html .= '</select>
 
-              <select id="advanced-max-list-price" name="max_list_price">
+              <select id="spring-advanced-max-list-price" name="max_list_price">
                 <option value="" selected="selected">Max Price</option>
                 <option value="">Max Price</option>';
 
@@ -254,15 +254,15 @@ function SPRINGAPIWP_search_form($searchType) {
           </div>
 
           <input type="hidden" name="pagination" value="0">
-          <span class="advanced-search-submit" style="float: right; margin-top: 4px;" id="search-field-toggle" onclick="hiddenCheck()" />More Search Fields</span>
-          <input class="advanced-search-submit" style="float: right;" type="submit" value="Submit Search">
+          <span class="spring-advanced-search-submit" style="float: right;" id="spring-search-field-toggle" onclick="hiddenCheck()" />More Search Fields</span>
+          <input class="spring-advanced-search-submit" style="float: right;" type="submit" value="Submit Search">
         </form>
         <script type="text/javascript">
           function hiddenCheck() {
-            var schoolDisplay = document.getElementById("advanced-school");
-            document.getElementById("search-field-toggle").innerHTML = schoolDisplay.style.display === "none" ? "Less Search Fields" : "More Search Fields";
+            var schoolDisplay = document.getElementById("spring-advanced-school");
+            document.getElementById("spring-search-field-toggle").innerHTML = schoolDisplay.style.display === "none" ? "Less Search Fields" : "More Search Fields";
             schoolDisplay.style.display = schoolDisplay.style.display === "none" ? "" : "none";
-            document.getElementById("advanced-top-portion").style.height = schoolDisplay.style.display === "none" ? "110px" : "135px";
+            document.getElementById("spring-advanced-top-portion").style.height = schoolDisplay.style.display === "none" ? "110px" : "135px";
           }
         </script>
     ';
@@ -271,11 +271,11 @@ function SPRINGAPIWP_search_form($searchType) {
     $onPage = strstr($server_host, '/search') ? '?quick_terms=&property_type=Single+Family+Residence&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0' : 'search?quick_terms=&property_type=Single+Family+Residence&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0';
 
     $html = '
-      <form class="quick-search-form" action="/search" method="GET">';
-        $html .= '<input type="text" id="displet-quick_terms" name="quick_terms" class="displet-search-field displet-full" value="" placeholder="City, Zip, Neighborhood">
+      <form class="spring-quick-search-form" action="/search" method="GET">';
+        $html .= '<input type="text" id="spring-quick_terms" name="quick_terms" class="spring-search-field spring-full" value="" placeholder="City, Zip, Neighborhood">
         <br />
 
-        <select id="quick-property-select" name="property_type" class="displet-search-field" data-placeholder="Property Type">
+        <select id="spring-quick-property-select" name="property_type" class="spring-search-field" data-placeholder="Property Type">
           <option value="" disabled="">Property Type</option>
           <option value="Single Family Residence">Single Family Residence</option>
           <option value="Manufactured Home">Manufactured Home</option>
@@ -284,45 +284,46 @@ function SPRINGAPIWP_search_form($searchType) {
         </select>
         <br />
 
-        <input type="text" id="displet-keyword" name="keyword" class="displet-search-field displet-full" value="" placeholder="Address, MLS#, Keywords">
+        <input type="text" id="spring-keyword" name="keyword" class="spring-search-field spring-full" value="" placeholder="Address, MLS#, Keywords">
         <br />
 
-        <select id="displet-min_bedrooms" name="min_bedrooms" class="quick-left-float">
-          <option value="0" selected="selected">Min Beds</option><option value="0">none</option>
-          <option value="1">1+ beds</option><option value="2">2+ beds</option>
-          <option value="3">3+ beds</option><option value="4">4+ beds</option>
-          <option value="5">5+ beds</option><option value="6">6+ beds</option>
-        </select>
+        <div class="spring-min-max">
+          <select id="spring-min-bedrooms" name="min_bedrooms" class="spring-quick-left-float">
+            <option value="0" selected="selected">Min Beds</option><option value="0">none</option>
+            <option value="1">1+ beds</option><option value="2">2+ beds</option>
+            <option value="3">3+ beds</option><option value="4">4+ beds</option>
+            <option value="5">5+ beds</option><option value="6">6+ beds</option>
+          </select>
 
-        <select id="displet-min_bathrooms" name="min_bathrooms" class="quick-right-float">
-          <option value="0" selected="selected">Min Baths</option><option value="0">none</option>
-          <option value="1">1+ baths</option><option value="2">2+ baths</option>
-          <option value="3">3+ baths</option><option value="4">4+ baths</option>
-          <option value="5">5+ baths</option><option value="6">6+ baths</option>
-        </select>
+          <select id="spring-min-bathrooms" name="min_bathrooms" class="spring-quick-right-float">
+            <option value="0" selected="selected">Min Baths</option><option value="0">none</option>
+            <option value="1">1+ baths</option><option value="2">2+ baths</option>
+            <option value="3">3+ baths</option><option value="4">4+ baths</option>
+            <option value="5">5+ baths</option><option value="6">6+ baths</option>
+          </select>
+        </div>
 
-        <br />
+        <div class="spring-min-max">
+          <select id="spring-min-list-price" name="min_list_price" class="spring-quick-left-float">
+            <option value="0" selected="selected">Min Price</option>
+            <option value="0">none</option>';
 
-        <select id="displet-min_list_price" name="min_list_price" class="quick-left-float">
-          <option value="0" selected="selected">Min Price</option>
-          <option value="0">none</option>';
+            for($i = 100000; $i <= 20000000; $i += 50000) {
+              $html .= '<option value=' . $i . '>$' . number_format($i) . '+</option>';
+            }
 
-          for($i = 100000; $i <= 20000000; $i += 50000) {
-            $html .= '<option value=' . $i . '>$' . number_format($i) . '+</option>';
-          }
+          $html .= '</select>
 
-        $html .= '</select>
+          <select id="spring-max-list-price" name="max_list_price" class="spring-quick-right-float">
+            <option value="" selected="selected">Max Price</option>
+            <option value="">Max Price</option>';
 
-        <select id="displet-max_list_price" name="max_list_price" class="quick-right-float">
-          <option value="" selected="selected">Max Price</option>
-          <option value="">Max Price</option>';
+            for($i = 100000; $i <= 20000000; $i += 50000) {
+              $html .= '<option value=' . $i . '>$' . number_format($i) . '+</option>';
+            }
 
-          for($i = 100000; $i <= 20000000; $i += 50000) {
-            $html .= '<option value=' . $i . '>$' . number_format($i) . '+</option>';
-          }
-
-        $html .= '</select>
-        <br />';
+          $html .= '</select>
+        </div>';
 
         //only insert if advanced
         $html .= '<input type="hidden" name="school" value="">';
@@ -331,8 +332,8 @@ function SPRINGAPIWP_search_form($searchType) {
 
         <input type="hidden" name="pagination" value="0">
         <input type="hidden" name="sorting" value="created desc">
-        <input id="find-home-button" type="submit" value="Find Home">
-        <p class="advanced-search-link"><a href="' . $server_host . $onPage . '">Advanced Search</a></p>
+        <input id="spring-find-home-button" type="submit" value="Find Home">
+        <p class="spring-advanced-search-link"><a href="' . $server_host . $onPage . '">Advanced Search</a></p>
       </form>
     ';
   }
@@ -343,10 +344,69 @@ function SPRINGAPIWP_search_form($searchType) {
 add_shortcode( 'full-result', 'SPRINGAPIWP_render_full' );
 
 function SPRINGAPIWP_render_full ( $atts ){
+  $html = "";
+
+  if(isset($_POST['spring-friend-post'])) {
+    $to = $_POST['spring-post-friend-name'] . " <" . $_POST['spring-friend-email'] . ">";
+    $fullAddress = $_POST['spring-post-fullAddress'];
+    $message = $_POST['spring-post-message'];
+
+    $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $subject = "A Friend Thinks You'll Like " . $fullAddress;
+
+    $content = "<p>$link</p>";
+    $content .= "<p>Property: $fullAddress </p>";
+    $content .= "<p>Message From A Friend: $message</p>";
+
+    $headers[] = "Content-type: text/html" ;
+
+    $status = wp_mail($to, $subject, $content, $headers);
+
+    if($status) {
+      $html .= "<p style='color: green;'>Email to friend was sent successfully.</p> <br />";
+    }
+    else {
+      $html .= "<p style='color: red;'>Email to friend was not sent successfully. Please try again. </p> <br />";
+    }
+  }
+
+  if(isset($_POST['spring-request-post'])) {
+    $to = $_POST['spring-post-agent-email'];
+    $fullAddress = $_POST['spring-post-fullAddress'];
+    $mlsNumber = $_POST['spring-post-mls'];
+    $personName = $_POST['spring-post-self-name'];
+    $replyTo = $_POST['spring-post-self-email'];
+    $appointment1 = $_POST['spring-post-self-appt1'];
+    $appointment2 = $_POST['spring-post-self-appt2'];
+    $comments = $_POST['spring-self-post-comments'];
+
+    $subject = "Request for Information for " . $fullAddress;
+
+    $content = "<p>Request for information for $fullAddress ,#$mlsNumber</p>";
+    $content .= "<p>Sender Information</p>";
+    $content .= "<p>Name: $personName</p>";
+    $content .= "<p>Email Address: <a href='mailto:$replyTo'>$replyTo</a></p>";
+    $content .= "<p>Preferred Appointments: $appointment1, $appointment2</p>";
+    $content .= "<p>Comments: $comments</p>";
+
+    $headers[] = "Content-type: text/html" ;
+
+    $status = wp_mail($to, $subject, $content, $headers);
+
+    if($status) {
+      $html .= "<p style='color: green;'>Request for information sent successfully.</p> <br />";
+    }
+    else {
+      $html .= "<p style='color: red;'>Request for information was not sent successfully. Please try again. </p> <br />";
+    }
+  }
+
   $data = SPRINGAPIWP_get_data('listingRender.txt');
   $key = $data[0];
   $siteValue = $data[1];
   $template = $data[2];
+  $telephone = $data[3];
+  $googleMapsKey = $data[4];
 
   $results = array();
 
@@ -358,7 +418,10 @@ function SPRINGAPIWP_render_full ( $atts ){
     $results[0][0]["listingPricing"]["listPrice"] = number_format($results[0][0]["listingPricing"]["listPrice"]);
   }
 
-  $html = "
+  $results[0][0]["phone"] = $telephone;
+  $results[0][0]["googleMapsKey"] = $googleMapsKey;
+
+  $html .= "
     <pre class='spring-data-hidden' style='display: none !important;'>
       " . json_encode(array('template' => base64_encode($template), 'results' => $results)) . "
     </pre>

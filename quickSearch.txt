@@ -1,17 +1,21 @@
-5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="quick-search">
+5hq2gdm7xukpqqpptdm8x8rj$SPRING$baarmls$SPRING$<div class="spring-quick-search">
   {{#pageInfo.named}}
-  <div class="search-options" style="float:right;">
-    <select form="advanced-search-form" name="sorting" id="sorting-select" onchange="this.form.submit()">
+  <div style="float: left;">
+    <span class="spring-listing-choices" style="margin: 3px; padding: 1px !important;" onclick="toggleListings('listing')">&#9632; Listings</span>
+    <span class="spring-listing-choices" style="margin: 3px; padding: 1px !important;" onclick="toggleListings('map')">&#9632; Map</span>
+  </div>
+  <div class="spring-search-options" style="float:right;">
+    <select form="spring-advanced-search-form" name="sorting" id="sorting-select" onchange="this.form.submit()">
       <option value="ListPrice">Price Low to High</option>
       <option value="ListPrice desc">Price High to Low</option>
       <option value="created desc" selected="selected">Newest</option>
       <option value="created">Oldest</option>
     </select>
   </div>
-  <div class="clear-line" />
-  <div class="quick-search-background">
-    <ul class="quick-search-pages">
-      <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
+  <div class="spring-clear-line" />
+  <div class="spring-quick-search-background">
+    <ul class="spring-quick-search-pages">
+      <li class="spring-quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
       {{#pages}}
         {{#previous}}
           <li><a href="{{{.}}}">Previous<a/></li>
@@ -20,14 +24,14 @@
             <li><a style="text-decoration:underline !important;" href="{{{url}}}">{{num}}</a></li>
           {{/selected}}
           {{^selected}}
-            {{#prefix}}<span class="ellipsis"> ... </span>{{/prefix}}
+            {{#prefix}}<span class="spring-ellipsis"> ... </span>{{/prefix}}
             {{#hidden}}
               <li style="display: none"><a href="{{{url}}}">{{num}}</a></li>
             {{/hidden}}
             {{^hidden}}
               <li><a href="{{{url}}}">{{num}}</a></li>
             {{/hidden}}
-            {{#postfix}}<span class="ellipsis"> ... </span>{{/postfix}}
+            {{#postfix}}<span class="spring-ellipsis"> ... </span>{{/postfix}}
           {{/selected}}
         {{#next}}
           <li><a href="{{{.}}}">Next</a></li>
@@ -35,45 +39,51 @@
       {{/pages}}
     </ul>
   </div>
-  <div class="clear-line" />
+  <div class="spring-clear-line" style="margin-bottom: 5px;" />
   {{/pageInfo.named}}
-  <ul class="quick-search-listings">
-    {{#results}}
-      <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}"><li class="quick-search-listing">
-        <img class="quick-search-photo-wrapper" src="{{img}}" />
-        {{#listingPricing}}
-          <p class="quick-search-price">${{listPrice}}</p>
-        {{/listingPricing}}
+  <div id="spring-results-map" style="position: absolute; left: -200%;"></div>
+  <div id="spring-results-main">
+    <ul class="spring-quick-search-listings">
+      {{#results}}
+        <a class="spring-listing-slug" href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}"><li class="spring-quick-search-listing">
+          <img class="spring-quick-search-photo-wrapper" src="{{img}}" />
+          {{#listingPricing}}
+            <p class="quick-search-price">${{listPrice}}</p>
+          {{/listingPricing}}
 
-        {{#location}}{{#address}}
-          <p class="quick-search-address">{{StreetNumber}} {{StreetName}}</p>
-          <p class="quick-search-address">{{City}}, {{StateOrProvince}}</p>
-        {{/address}}{{/location}}
+          {{#location}}
+            {{#address}}
+              <p class="spring-quick-search-address">{{StreetNumber}} {{StreetName}}</p>
+              <p class="spring-quick-search-address">{{City}}, {{StateOrProvince}} {{PostalCode}}</p>
+            {{/address}}
+            {{#gis}}
+              <div style="display: none;" class="spring-quick-search-latitude">{{latitude}}</div>
+              <div style="display: none;" class="spring-quick-search-longitude">{{longitude}}</div>
+            {{/gis}}
+          {{/location}}
 
-        {{#structure}}
-          <p class="quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
-        {{/structure}}
+          {{#structure}}
+            <p class="spring-quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
+          {{/structure}}
 
-        {{#property}}
-          <p>Property Type: {{Type}}, {{SubType}}</p>
-        {{/property}}
+          {{#property}}
+            <p>Property Type: {{Type}}, {{SubType}}</p>
+          {{/property}}
 
-        {{#agentOffice}}
-          {{#ListAgent}}
-            <p>Courtesy of {{FullName}},
-          {{/ListAgent}}
-          {{#ListOffice}}
-            {{{Name}}}</p>
-          {{/ListOffice}}
-        {{/agentOffice}}
-      </li></a>
-    {{/results}}
-  </ul>
-  <div class="clear-line" />
+          {{#agentOffice}}
+            {{#ListOffice}}
+              <p>Courtesy of {{{Name}}}</p>
+            {{/ListOffice}}
+          {{/agentOffice}}
+        </li></a>
+      {{/results}}
+    </ul>
+  </div>
+  <div class="spring-clear-line" />
   {{#pageInfo.named}}
-    <div class="quick-search-background">
-      <ul class="quick-search-pages">
-        <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
+    <div class="spring-quick-search-background">
+      <ul class="spring-quick-search-pages">
+        <li class="spring-quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
         {{#pages}}
           {{#previous}}
             <li><a href="{{{.}}}">Previous<a/></li>
@@ -82,14 +92,14 @@
               <li><a style="text-decoration:underline !important;" href="{{{url}}}">{{num}}</a></li>
             {{/selected}}
             {{^selected}}
-              {{#prefix}}<span class="ellipsis"> ... </span>{{/prefix}}
+              {{#prefix}}<span class="spring-ellipsis"> ... </span>{{/prefix}}
               {{#hidden}}
                 <li style="display: none"><a href="{{{url}}}">{{num}}</a></li>
               {{/hidden}}
               {{^hidden}}
                 <li><a href="{{{url}}}">{{num}}</a></li>
               {{/hidden}}
-              {{#postfix}}<span class="ellipsis"> ... </span>{{/postfix}}
+              {{#postfix}}<span class="spring-ellipsis"> ... </span>{{/postfix}}
             {{/selected}}
           {{#next}}
             <li><a href="{{{.}}}">Next</a></li>
@@ -98,5 +108,81 @@
       </ul>
     </div>
   {{/pageInfo.named}}
-</div>$SPRING$626151
+</div><script>
+  window.onload = function () {
+    getSlug = document.getElementsByClassName("spring-listing-slug");
+
+    for(i=0; i<getSlug.length;i++) {
+      getSlug[i].href = getSlug[i].href.replace(/\s/g, '-');
+      getSlug[i].href = getSlug[i].href.replace(/%20/g, '-');
+    }
+  }
+
+  function add($) {
+    $(document).ready(function() {
+       var maxHeight = -1;
+
+       $('.spring-quick-search-listing').each(function() {
+         maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+       });
+
+       $('.spring-quick-search-listing').each(function() {
+         $(this).height(maxHeight);
+       });
+       var locations = [
+          {{#results}}
+            [
+              '{{location.address.StreetNumber}} {{location.address.StreetName}}<br />{{location.address.City}}, {{location.address.StateOrProvince}} {{location.address.PostalCode}}',
+              {{location.gis.latitude}},
+              {{location.gis.longitude}}
+            ],
+          {{/results}}
+        null
+       ];
+
+       locations = locations.slice(0, -1);
+
+      var map = new google.maps.Map(document.getElementById('spring-results-map'), {
+        zoom: 12,
+        center: new google.maps.LatLng(locations[0][1], locations[0][2]),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var marker, i;
+
+      for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+          map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent(locations[i][0]);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+      }
+    });
+  }
+  add(window.jQuery);
+
+  function toggleListings (type) {
+    var mainDisplay = document.getElementById("spring-results-main");
+    var mapDisplay = document.getElementById("spring-results-map");
+
+    if(type=='map') {
+      mainDisplay.style.display = "none";
+      mapDisplay.style.position = "";
+      mapDisplay.style.left = "";
+      mapDisplay.style.display = "";
+    }
+    else if(type=='listing') {
+      mainDisplay.style.display = "";
+      mapDisplay.style.display = "none";
+    }
+  }
+</script>$SPRING$626151
 626151

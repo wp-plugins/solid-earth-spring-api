@@ -5,7 +5,7 @@
   background-color: #eee;
 }
 
-.feat-frame {
+.spring-feat-frame {
   pointer-events: none;
 }
 
@@ -110,7 +110,6 @@
   position: relative;
 }
 
-.caption-desc {
+.spring-caption-desc {
    height: 90px;
-   overflow-y: scroll;
 }

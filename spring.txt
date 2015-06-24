@@ -14,10 +14,10 @@
             background-position: center;
           "></div>
 
-          <div class="caption-wrap">
+          <div class="spring-caption-wrap">
             {{#location}}{{#address}}
-              <div class="caption">
-                <div class="featHead">
+              <div class="spring-caption">
+                <div class="spring-featHead">
                   {{StreetNumber}} {{StreetName}}<br>
                   {{#listingPricing}}
                     ${{listPrice}}
@@ -25,13 +25,13 @@
                 </div>
               </div>
             {{/address}}{{/location}}
-            <div class="caption-desc" style="height: 90px; overflow-y: scroll;">
+            <div class="spring-caption-desc" style="height: 90px;">
               {{#remarks}}
-                <div class="public-remarks">{{publicRemarks}}</div>
+                <div class="spring-public-remarks">{{publicRemarks}}</div>
               {{/remarks}}
               <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}">Read more</a>
             </div>
-            <div class="caption-foot">
+            <div class="spring-caption-foot">
               <img src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png" style="
                 width: 38px;
                 height: 17px;
@@ -47,7 +47,7 @@
 </div>
 
 <style>
-  img.feat-frame {
+  img.spring-feat-frame {
     z-index: 1;
   }
 </style>
@@ -57,7 +57,7 @@
     .jQuery(".spring-slider")
     .unslider({dots: true, delay: 7000});
     window.onload = function () {
-      getCaption = document.getElementsByClassName("public-remarks");
+      getCaption = document.getElementsByClassName("spring-public-remarks");
 
       for(i=0; i<getCaption.length;i++) {
         getCaption[i].innerHTML=getCaption[i].innerHTML.trim().substring(0,100)+'...';

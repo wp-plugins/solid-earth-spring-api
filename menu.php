@@ -70,7 +70,7 @@ function SPRINGAPIWP_menu() {
       <br>
 
       <h2>Template:</h2>
-      <textarea name="template" cols="50" rows="5">' . $template . '</textarea>
+      <textarea name="template" cols="50" rows="20">' . $template . '</textarea>
 
       <h2>MLS Numbers:</h2>
       <p>Enter the MLS numbers you would like to feature in the slider feature. Listings that go off market will be skipped.</p>
@@ -90,10 +90,12 @@ function SPRINGAPIWP_listing_menu() {
   if(isset($_POST["listing"])) {
     $apikey = $_POST["apikey"];
     $sitename = $_POST["siteselect"];
-    $template = stripslashes($_POST["template"]);
+    $templatePost = stripslashes($_POST["template"]);
+    $telephonePost = $_POST["telephone"];
+    $googleMapsKeyPost = $_POST["googleMapsKey"];
     $ids = "";
 
-    $data = array($apikey, $sitename, $template, $ids);
+    $data = array($apikey, $sitename, $templatePost, $telephonePost, $googleMapsKeyPost, $ids);
 
     SPRINGAPIWP_set_data($data, 'listingRender.txt');
   }
@@ -186,7 +188,9 @@ function SPRINGAPIWP_listing_menu() {
   ';
 
   $siteValue = $data[1];
-  $template = $data[2];
+  $template = htmlspecialchars_decode($data[2]);
+  $telephone = $data[3];
+  $googleMapsKey = $data[4];
 
   if ($template == '') {
     $template = $default_template;
@@ -194,18 +198,24 @@ function SPRINGAPIWP_listing_menu() {
 
   $html = '
     <h1>Spring IDX from Solid Earth - Listing Details</h1>
-    <form action="" method="POST">
+    <form method="POST">
 
       <br><br>' . SPRINGAPIWP_siteSelect($siteValue) . '
 
       <h2 style="display: inline;">API Key:</h2>
       <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
       <br />
-      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '"/>
       <br>
 
       <h2>Template:</h2>
-      <textarea name="template" cols="50" rows="5">' . $template . '</textarea>
+      <textarea name="template" cols="50" rows="20">' . htmlspecialchars($template) . '</textarea>
+
+      <h2>Telephone:</h2>
+      <input style="margin-top: 10px;" type="text" name="telephone" value="' . $telephone . '"/>
+
+      <h2>Google Maps Key:</h2>
+      <input style="margin-top: 10px;" type="text" name="googleMapsKey" value="' . $googleMapsKey . '"/>
 
       <br>
       <input type="hidden" name="listing" value="listing" />
@@ -232,8 +242,8 @@ function SPRINGAPIWP_quick_menu() {
   $data = SPRINGAPIWP_get_data('quickSearch.txt');
 
   $default_template = '
-    <div class="quick-search">
-      <div class="search-options" style="float:right;">
+    <div class="spring-quick-search">
+      <div class="spring-search-options" style="float:right;">
         <select form="advanced-search-form" name="sorting" id="sorting-select" onchange="this.form.submit()">
           <option value="ListPrice">Price Low to High</option>
           <option value="ListPrice desc">Price High to Low</option>
@@ -241,10 +251,10 @@ function SPRINGAPIWP_quick_menu() {
           <option value="created">Oldest</option>
         </select>
       </div>
-      <div class="clear-line" />
-      <div class="quick-search-background">
-        <ul class="quick-search-pages">
-          <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
+      <div class="spring-clear-line" />
+      <div class="spring-quick-search-background">
+        <ul class="spring-quick-search-pages">
+          <li class="spring-quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
           {{#pages}}
             {{#previous}}
               <li><a href="{{{.}}}">Previous<a/></li>
@@ -261,22 +271,22 @@ function SPRINGAPIWP_quick_menu() {
           {{/pages}}
         </ul>
       </div>
-      <div class="clear-line" />
-      <ul class="quick-search-listings">
+      <div class="spring-clear-line" />
+      <ul class="spring-quick-search-listings">
         {{#results}}
-          <li class="quick-search-listing">
-            <img class="quick-search-photo-wrapper" src="{{img}}" />
+          <li class="spring-quick-search-listing">
+            <img class="spring-quick-search-photo-wrapper" src="{{img}}" />
             {{#listingPricing}}
-              <p class="quick-search-price">${{listPrice}}</p>
+              <p class="spring-quick-search-price">${{listPrice}}</p>
             {{/listingPricing}}
 
             {{#location}}{{#address}}
-              <p class="quick-search-address">{{StreetNumber}} {{StreetName}}</p>
-              <p class="quick-search-address">{{City}}, {{StateOrProvince}}</p>
+              <p class="spring-quick-search-address">{{StreetNumber}} {{StreetName}}</p>
+              <p class="spring-quick-search-address">{{City}}, {{StateOrProvince}}</p>
             {{/address}}{{/location}}
 
             {{#structure}}
-              <p class="quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
+              <p class="spring-quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
             {{/structure}}
 
             {{#property}}
@@ -295,8 +305,8 @@ function SPRINGAPIWP_quick_menu() {
         {{/results}}
       </ul>
       <div class="clear-line" />
-      <div class="quick-search-background">
-        <ul class="quick-search-pages">
+      <div class="spring-quick-search-background">
+        <ul class="spring-quick-search-pages">
           <li class="quick-left-float">Page {{pageInfo.currentPage}}, results {{pageInfo.range}} of {{pageInfo.count}}</li>
           {{#pages}}
             {{#previous}}
@@ -325,7 +335,7 @@ function SPRINGAPIWP_quick_menu() {
   }
 
   $html = '
-    <h1>Spring IDX from Solid Earth - Quick Search</h1>
+    <h1>Spring IDX from Solid Earth - Search</h1>
     <form action="" method="POST">
 
       <br><br>' . SPRINGAPIWP_siteSelect($siteValue) . '
@@ -337,7 +347,7 @@ function SPRINGAPIWP_quick_menu() {
       <br>
 
       <h2>Template:</h2>
-      <textarea name="template" cols="50" rows="5">' . $template . '</textarea>
+      <textarea name="template" cols="50" rows="20">' . $template . '</textarea>
 
       <br>
       <input type="hidden" name="quick" value="quick" />
@@ -363,24 +373,24 @@ function SPRINGAPIWP_agent_menu() {
   $data = SPRINGAPIWP_get_data('agentPage.txt');
 
   $default_template = '
-    <div class="quick-search">
-      <div class="clear-line" />
-      <ul class="quick-search-listings">
+    <div class="spring-quick-search">
+      <div class="spring-clear-line" />
+      <ul class="spring-quick-search-listings">
         {{#results}}
           {{#.}}
             <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}"><li class="quick-search-listing">
-              <img class="quick-search-photo-wrapper" src="{{Media.1.file}}" />
+              <img class="spring-quick-search-photo-wrapper" src="{{Media.1.file}}" />
               {{#listingPricing}}
-                <p class="quick-search-price">${{listPrice}}</p>
+                <p class="spring-quick-search-price">${{listPrice}}</p>
               {{/listingPricing}}
 
               {{#location}}{{#address}}
-                <p class="quick-search-address">{{StreetNumber}} {{StreetName}}</p>
-                <p class="quick-search-address">{{City}}, {{StateOrProvince}}</p>
+                <p class="spring-quick-search-address">{{StreetNumber}} {{StreetName}}</p>
+                <p class="spring-quick-search-address">{{City}}, {{StateOrProvince}}</p>
               {{/address}}{{/location}}
 
               {{#structure}}
-                <p class="quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
+                <p class="spring-quick-search-rooms">{{BedroomsTotal}} Bed, {{BathroomsTotal}} Bath</p>
               {{/structure}}`
 
               {{#property}}
@@ -426,7 +436,7 @@ function SPRINGAPIWP_agent_menu() {
       <br>
 
       <h2>Template:</h2>
-      <textarea name="template" cols="50" rows="5">' . $template . '</textarea>
+      <textarea name="template" cols="50" rows="20">' . $template . '</textarea>
 
       <br>
       <input type="hidden" name="agent" value="agent" />
