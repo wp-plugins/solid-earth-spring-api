@@ -17,6 +17,31 @@ function SPRINGAPIWP_render_slider( $atts ){
     array_push($results, SPRINGAPIWP_spring_listing($key, $ids[$i], false, $siteValue));
   }
 
+  if(isset($results[0][0])) {
+    foreach ($results as &$res) {
+
+      if(!isset($res[0])) {
+        unset($res);
+        continue;
+      }
+
+      foreach ($res[0]["location"] as &$location)
+      {
+        foreach ($location as &$l) {
+          if(strlen($l) !== 2) {
+            $l = ucwords(strtolower($l));
+          }
+        }
+      }
+
+      $urlConstruction = "";
+      foreach ($res[0]["location"]["address"] as $add) {
+        $urlConstruction .= $add . "-";
+      }
+      $res[0]["endSlug"] = str_replace(" ", "-" ,rtrim($urlConstruction, "-"));
+    }
+  }
+
   $remaining = 5 - sizeof($results);
 
   if ($remaining > 0) {
@@ -110,6 +135,7 @@ function SPRINGAPIWP_render_quick_search ( $atts ) {
       {
         $lprice = number_format($lprice);
       }
+
       foreach ($res["location"] as &$location)
       {
         foreach ($location as &$l) {
@@ -118,6 +144,13 @@ function SPRINGAPIWP_render_quick_search ( $atts ) {
           }
         }
       }
+
+      $urlConstruction = "";
+      foreach ($res["location"]["address"] as $add) {
+        $urlConstruction .= $add . "-";
+      }
+      $res["endSlug"] = str_replace(" ", "-" ,rtrim($urlConstruction, "-"));
+
     }
 
     $pageArray[$pageCurrentlyOn]['selected'] = $pageCurrentlyOn;
@@ -159,7 +192,7 @@ function SPRINGAPIWP_search_form($searchType) {
   $server_host = $serverURLArray[0];
 
   if($searchType === 'advanced') {
-    $propertyTypes = array('Single Family Residence', 'Manufactured Home', 'Condominium', 'Townhouse');
+    $propertyTypes = array('Single Family', 'Condo', 'Townhouse');
     $bedroomTypes = array(1, 2, 3, 4, 5, 6);
     $bathroomTypes = array(1, 2, 3, 4, 5, 6);
 
@@ -268,7 +301,7 @@ function SPRINGAPIWP_search_form($searchType) {
     ';
   }
   else {
-    $onPage = strstr($server_host, '/search') ? '?quick_terms=&property_type=Single+Family+Residence&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0' : 'search?quick_terms=&property_type=Single+Family+Residence&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0';
+    $onPage = strstr($server_host, '/search') ? '?quick_terms=&property_type=Single+Family&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0' : 'search?quick_terms=&property_type=Single+Family+Residence&keyword=&min_bedrooms=0&min_bathrooms=0&min_list_price=0&max_list_price=&school=&sorting=created+desc&pagination=0';
 
     $html = '
       <form class="spring-quick-search-form" action="/search" method="GET">';
@@ -277,9 +310,8 @@ function SPRINGAPIWP_search_form($searchType) {
 
         <select id="spring-quick-property-select" name="property_type" class="spring-search-field" data-placeholder="Property Type">
           <option value="" disabled="">Property Type</option>
-          <option value="Single Family Residence">Single Family Residence</option>
-          <option value="Manufactured Home">Manufactured Home</option>
-          <option value="Condominium">Condominium</option>
+          <option value="Single Family">Single Family Residence</option>
+          <option value="Condo">Condominium</option>
           <option value="Townhouse">Townhouse</option>
         </select>
         <br />
@@ -444,6 +476,30 @@ function SPRINGAPIWP_agent_render ( $atts, $content, $sc ) {
   $results = array();
 
   array_push($results, SPRINGAPIWP_agent_listing($key, $name, false));
+
+  if(isset($results[0][0])) {
+    foreach ($results[0] as &$res) {
+      foreach ($res["listingPricing"] as &$lprice)
+      {
+        $lprice = number_format($lprice);
+      }
+
+      foreach ($res["location"] as &$location)
+      {
+        foreach ($location as &$l) {
+          if(strlen($l) !== 2) {
+            $l = ucwords(strtolower($l));
+          }
+        }
+      }
+
+      $urlConstruction = "";
+      foreach ($res["location"]["address"] as $add) {
+        $urlConstruction .= $add . "-";
+      }
+      $res["endSlug"] = str_replace(" ", "-" ,rtrim($urlConstruction, "-"));
+    }
+  }
 
   $html = "
     <pre class='spring-data-hidden' style='display: none !important;'>

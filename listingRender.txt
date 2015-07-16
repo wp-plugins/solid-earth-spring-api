@@ -137,7 +137,7 @@
             <div class="spring-listing-agent">
               <h1>Listing Agent</h1>
               <ul>
-                <li>Listing Courtesy of: {{agentOffice.ListOffice.Name}}</li>
+                <li>Listing Courtesy of: {{{agentOffice.ListOffice.Name}}}</li>
               </ul>
             </div>
           </div>

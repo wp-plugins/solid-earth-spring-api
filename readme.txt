@@ -67,3 +67,7 @@ Please visit [Solid Earth](http://solidearth.com/products/spring/) for more info
 = 1.2 =
 * Addition of Google Maps functionality, request information/showing buttons, and email a friend button
 * Major changes to styling and formatting
+
+= 1.3 =
+* Major upgrades to styling and formatting
+* Minor bug fixes to searches and maps

@@ -17,7 +17,7 @@
           <div class="spring-caption-wrap">
             {{#location}}{{#address}}
               <div class="spring-caption">
-                <div class="spring-featHead">
+                <div class="spring-feat-head">
                   {{StreetNumber}} {{StreetName}}<br>
                   {{#listingPricing}}
                     ${{listPrice}}
@@ -25,19 +25,14 @@
                 </div>
               </div>
             {{/address}}{{/location}}
-            <div class="spring-caption-desc" style="height: 90px;">
+            <div class="spring-caption-desc">
               {{#remarks}}
                 <div class="spring-public-remarks">{{publicRemarks}}</div>
               {{/remarks}}
-              <a href="/property/{{ListingId}}/{{location.address.StreetNumber}}-{{location.address.StreetName}}-{{location.address.City}}-{{location.address.StateOrProvince}}">Read more</a>
+              <a href="/property/{{ListingId}}/{{endSlug}}">Read more</a>
             </div>
             <div class="spring-caption-foot">
-              <img src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png" style="
-                width: 38px;
-                height: 17px;
-                margin-top: 10px;
-                position: relative;
-              ">
+              <p><img style="margin-left: 55px;" src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png"></p>
             </div>
           </div>
         </li>
@@ -64,8 +59,10 @@
       }
     }
 
-</script>$SPRING$622627
-625724
+</script>$SPRING$631818
+630450
+625435
+631963
+620919
+720912
 620786
-626609
-626184

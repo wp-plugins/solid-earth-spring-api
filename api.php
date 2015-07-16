@@ -58,7 +58,7 @@ function SPRINGAPIWP_quick_search($key, $formValues, $name, $sandbox = true, $si
 
     $qs = "&ListPriceMin=" . (empty($formValues['min_list_price']) ? "" : $formValues['min_list_price']);
     $qs .= "&ListPriceMax=" . (empty($formValues['max_list_price']) ? "" : $formValues['max_list_price']);
-    $qs .= "&BathsTotalMind=" . (empty($formValues['min_bathrooms']) ? "" : $formValues['min_bathrooms']);
+    $qs .= "&BathsTotalMin=" . (empty($formValues['min_bathrooms']) ? "" : $formValues['min_bathrooms']);
     $qs .= "&BedsTotalMin=" . (empty($formValues['min_bedrooms']) ? "": $formValues['min_bedrooms']);
     $qs .= "&PropertyTypeIn=" . (empty($formValues['property_type']) ? "" : $formValues['property_type']);
     $qs .= "&_keywordsAll=" . (empty($allTerms) ? "" : $allTerms);
