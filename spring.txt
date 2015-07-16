@@ -32,7 +32,7 @@
               <a href="/property/{{ListingId}}/{{endSlug}}">Read more</a>
             </div>
             <div class="spring-caption-foot">
-              <p><img style="margin-left: 55px;" src="http://www.raypoynor.com/wp-content/themes/raypoynor/images/fleur.png"></p>
+              <p></p>
             </div>
           </div>
         </li>

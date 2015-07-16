@@ -152,7 +152,7 @@
       averageLong = averageLong / computedLongs;
 
       var map = new google.maps.Map(document.getElementById('spring-results-map'), {
-        zoom: 14,
+        zoom: 10,
         center: new google.maps.LatLng(averageLat, averageLong),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });

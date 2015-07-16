@@ -43,11 +43,11 @@
   display: none;
   height: 600px;
   left: 50%;
-  margin: -120px 0 0 -240px;
+  margin: 0 0 0 -200px;
   padding: 10px;
   position: absolute;
   top: 10%;
-  width: 400px;
+  width: 340px;
   z-index: 1000;
 }
 
