@@ -13,6 +13,11 @@ function add_menu() {
 function SPRINGAPIWP_menu() {
   if(isset($_POST["main"])) {
     $apikey = $_POST["apikey"];
+
+    // YF 27-08-2015 Start.
+    update_option( 'sesa_apikey', $apikey );
+    // End.
+
     $sitename = $_POST["siteselect"];
     $template = stripslashes($_POST["template"]);
     $ids = $_POST["ids"];
@@ -23,6 +28,13 @@ function SPRINGAPIWP_menu() {
   }
 
   $data = SPRINGAPIWP_get_data('spring.txt');
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $data[0] = $sesa_apikey;
+  }
+  // End.
 
   $default_template = '
     <div class="spring-slider">
@@ -89,6 +101,11 @@ function SPRINGAPIWP_menu() {
 function SPRINGAPIWP_listing_menu() {
   if(isset($_POST["listing"])) {
     $apikey = $_POST["apikey"];
+
+    // YF 27-08-2015 Start.
+    update_option( 'sesa_apikey', $apikey );
+    // End.
+    
     $sitename = $_POST["siteselect"];
     $templatePost = stripslashes($_POST["template"]);
     $telephonePost = $_POST["telephone"];
@@ -101,6 +118,13 @@ function SPRINGAPIWP_listing_menu() {
   }
 
   $data = SPRINGAPIWP_get_data('listingRender.txt');
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $data[0] = $sesa_apikey;
+  }
+  // End.
 
   $default_template = '
   <div class="listing-overarch">
@@ -230,6 +254,11 @@ function SPRINGAPIWP_listing_menu() {
 function SPRINGAPIWP_quick_menu() {
   if(isset($_POST["quick"])) {
     $apikey = $_POST["apikey"];
+
+    // YF 27-08-2015 Start.
+    update_option( 'sesa_apikey', $apikey );
+    // End.
+    
     $sitename = $_POST["siteselect"];
     $template = stripslashes($_POST["template"]);
     $ids = "";
@@ -240,6 +269,13 @@ function SPRINGAPIWP_quick_menu() {
   }
 
   $data = SPRINGAPIWP_get_data('quickSearch.txt');
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $data[0] = $sesa_apikey;
+  }
+  // End.
 
   $default_template = '
     <div class="spring-quick-search">
@@ -362,6 +398,11 @@ function SPRINGAPIWP_quick_menu() {
 function SPRINGAPIWP_agent_menu() {
   if(isset($_POST["agent"])) {
     $apikey = $_POST["apikey"];
+
+    // YF 27-08-2015 Start.
+    update_option( 'sesa_apikey', $apikey );
+    // End.
+    
     $sitename = $_POST["siteselect"];
     $template = stripslashes($_POST["template"]);
     $ids = "";
@@ -371,6 +412,13 @@ function SPRINGAPIWP_agent_menu() {
     SPRINGAPIWP_set_data($data, 'agentPage.txt');
   }
   $data = SPRINGAPIWP_get_data('agentPage.txt');
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $data[0] = $sesa_apikey;
+  }
+  // End.
 
   $default_template = '
     <div class="spring-quick-search">

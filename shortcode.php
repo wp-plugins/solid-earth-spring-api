@@ -7,6 +7,14 @@ add_shortcode( 'spring-slider', 'SPRINGAPIWP_render_slider' );
 function SPRINGAPIWP_render_slider( $atts ){
   $data = SPRINGAPIWP_get_data('spring.txt');
   $key = $data[0];
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $key = $sesa_apikey;
+  }
+  // End.
+  
   $siteValue = $data[1];
   $template = $data[2];
   $ids = explode("\n", $data[3]);
@@ -66,6 +74,14 @@ function SPRINGAPIWP_render_quick_search ( $atts ) {
     //TO DO: pin in the advanced search bar
     $data = SPRINGAPIWP_get_data('quickSearch.txt');
     $key = $data[0];
+
+    // YF 27-08-2015 Start.
+    $sesa_apikey = get_option( 'sesa_apikey' );
+    if ( $sesa_apikey ) {
+      $key = $sesa_apikey;
+    }
+    // End.
+    
     $siteValue = $data[1];
     $template = $data[2];
 
@@ -435,6 +451,14 @@ function SPRINGAPIWP_render_full ( $atts ){
 
   $data = SPRINGAPIWP_get_data('listingRender.txt');
   $key = $data[0];
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $key = $sesa_apikey;
+  }
+  // End.
+  
   $siteValue = $data[1];
   $template = $data[2];
   $telephone = $data[3];
@@ -468,6 +492,14 @@ function SPRINGAPIWP_agent_render ( $atts, $content, $sc ) {
   $data = SPRINGAPIWP_get_data('agentPage.txt');
 
   $key = $data[0];
+
+  // YF 27-08-2015 Start.
+  $sesa_apikey = get_option( 'sesa_apikey' );
+  if ( $sesa_apikey ) {
+    $key = $sesa_apikey;
+  }
+  // End.
+  
   $siteValue = $data[1];
   $template = $data[2];
 
