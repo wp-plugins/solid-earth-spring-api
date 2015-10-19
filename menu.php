@@ -12,29 +12,17 @@ function add_menu() {
 
 function SPRINGAPIWP_menu() {
   if(isset($_POST["main"])) {
-    $apikey = $_POST["apikey"];
+      $data = array(
+          'api_key' => $_POST['apikey'],
+          'sitename' => $_POST['siteselect'],
+          'template' => stripslashes($_POST['template']),
+          'ids' => $_POST['ids']
+      );
 
-    // YF 27-08-2015 Start.
-    update_option( 'sesa_apikey', $apikey );
-    // End.
-
-    $sitename = $_POST["siteselect"];
-    $template = stripslashes($_POST["template"]);
-    $ids = $_POST["ids"];
-
-    $data = array($apikey, $sitename, $template, $ids);
-
-    SPRINGAPIWP_set_data($data, 'spring.txt');
+    SPRINGAPIWP_set_data($data,'spring_settings');
   }
 
-  $data = SPRINGAPIWP_get_data('spring.txt');
-
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $data[0] = $sesa_apikey;
-  }
-  // End.
+  $data = SPRINGAPIWP_get_data('spring_settings');
 
   $default_template = '
     <div class="spring-slider">
@@ -62,31 +50,31 @@ function SPRINGAPIWP_menu() {
     </script>
   ';
 
-  $siteValue = $data[1];
-  $template = $data[2];
+  //$siteValue = $data[1];
+  //$template = $data[2];
 
-  if ($template == '') {
-    $template = $default_template;
+  if ($data['template'] == '') {
+    $data['template'] = $default_template;
   }
 
   $html = '
     <h1>Spring IDX from Solid Earth - Slider</h1>
     <form action="" method="POST">
 
-      <br><br>'. SPRINGAPIWP_siteSelect($siteValue) . '
+      <br><br>'. SPRINGAPIWP_siteSelect($data['sitename']) . '
 
       <h2 style="display: inline;">API Key:</h2>
       <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
       <br />
-      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data['api_key'] . '">
       <br>
 
       <h2>Template:</h2>
-      <textarea name="template" cols="50" rows="20">' . $template . '</textarea>
+      <textarea name="template" cols="50" rows="20">' . $data['template'] . '</textarea>
 
       <h2>MLS Numbers:</h2>
       <p>Enter the MLS numbers you would like to feature in the slider feature. Listings that go off market will be skipped.</p>
-      <textarea name="ids" cols="50" rows="5">' . $data[3] . '</textarea>
+      <textarea name="ids" cols="50" rows="5">' . $data['ids'] . '</textarea>
 
       <br>
       <input type="hidden" name="main" value="main" />
@@ -100,31 +88,20 @@ function SPRINGAPIWP_menu() {
 
 function SPRINGAPIWP_listing_menu() {
   if(isset($_POST["listing"])) {
-    $apikey = $_POST["apikey"];
+    $data = array(
+        'api_key' => esc_attr($_POST["apikey"]),
+        'sitename' => esc_attr($_POST["siteselect"]),
+        'template' => stripslashes($_POST["template"]),
+        'telephone' => esc_attr($_POST['telephone']),
+        'googleMapsKey' => esc_attr($_POST["googleMapsKey"]),
+        'ids' => ''
+    );
 
-    // YF 27-08-2015 Start.
-    update_option( 'sesa_apikey', $apikey );
-    // End.
-    
-    $sitename = $_POST["siteselect"];
-    $templatePost = stripslashes($_POST["template"]);
-    $telephonePost = $_POST["telephone"];
-    $googleMapsKeyPost = $_POST["googleMapsKey"];
-    $ids = "";
-
-    $data = array($apikey, $sitename, $templatePost, $telephonePost, $googleMapsKeyPost, $ids);
-
-    SPRINGAPIWP_set_data($data, 'listingRender.txt');
+    SPRINGAPIWP_set_data($data, 'listing_settings');
   }
 
-  $data = SPRINGAPIWP_get_data('listingRender.txt');
+  $data = SPRINGAPIWP_get_data('listing_settings');
 
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $data[0] = $sesa_apikey;
-  }
-  // End.
 
   $default_template = '
   <div class="listing-overarch">
@@ -211,10 +188,10 @@ function SPRINGAPIWP_listing_menu() {
   </div>
   ';
 
-  $siteValue = $data[1];
-  $template = htmlspecialchars_decode($data[2]);
-  $telephone = $data[3];
-  $googleMapsKey = $data[4];
+  $siteValue = $data['sitename'];
+  $template = htmlspecialchars_decode($data['template']);
+  $telephone = $data['telephone'];
+  $googleMapsKey = $data['googleMapsKeyPost'];
 
   if ($template == '') {
     $template = $default_template;
@@ -229,7 +206,7 @@ function SPRINGAPIWP_listing_menu() {
       <h2 style="display: inline;">API Key:</h2>
       <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
       <br />
-      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '"/>
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data['api_key']. '"/>
       <br>
 
       <h2>Template:</h2>
@@ -253,29 +230,17 @@ function SPRINGAPIWP_listing_menu() {
 
 function SPRINGAPIWP_quick_menu() {
   if(isset($_POST["quick"])) {
-    $apikey = $_POST["apikey"];
+    $data = array(
+        'api_key' => esc_attr($_POST["apikey"]),
+        'sitename' => esc_attr($_POST["siteselect"]),
+        'template' => stripslashes($_POST["template"]),
+        'ids' => ''
+    );
 
-    // YF 27-08-2015 Start.
-    update_option( 'sesa_apikey', $apikey );
-    // End.
-    
-    $sitename = $_POST["siteselect"];
-    $template = stripslashes($_POST["template"]);
-    $ids = "";
-
-    $data = array($apikey, $sitename, $template, $ids);
-
-    SPRINGAPIWP_set_data($data, 'quickSearch.txt');
+    SPRINGAPIWP_set_data($data, 'quicksearch_settings');
   }
 
-  $data = SPRINGAPIWP_get_data('quickSearch.txt');
-
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $data[0] = $sesa_apikey;
-  }
-  // End.
+  $data = SPRINGAPIWP_get_data('quicksearch_settings');
 
   $default_template = '
     <div class="spring-quick-search">
@@ -363,8 +328,8 @@ function SPRINGAPIWP_quick_menu() {
     </div>
   ';
 
-  $siteValue = $data[1];
-  $template = $data[2];
+  $siteValue = $data['sitename'];
+  $template = $data['template'];
 
   if ($template == '') {
     $template = $default_template;
@@ -379,7 +344,7 @@ function SPRINGAPIWP_quick_menu() {
       <h2 style="display: inline;">API Key:</h2>
       <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
       <br />
-      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data['api_key'] . '">
       <br>
 
       <h2>Template:</h2>
@@ -402,23 +367,16 @@ function SPRINGAPIWP_agent_menu() {
     // YF 27-08-2015 Start.
     update_option( 'sesa_apikey', $apikey );
     // End.
-    
+
     $sitename = $_POST["siteselect"];
     $template = stripslashes($_POST["template"]);
     $ids = "";
 
-    $data = array($apikey, $sitename, $template, $ids);
+    $data = array('api_key' => $apikey,'sitename' => $sitename,'template'=> $template, 'ids' =>$ids);
 
-    SPRINGAPIWP_set_data($data, 'agentPage.txt');
+    SPRINGAPIWP_set_data($data, 'agentpage_settings');
   }
-  $data = SPRINGAPIWP_get_data('agentPage.txt');
-
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $data[0] = $sesa_apikey;
-  }
-  // End.
+  $data = SPRINGAPIWP_get_data('agentpage_settings');
 
   $default_template = '
     <div class="spring-quick-search">
@@ -464,8 +422,8 @@ function SPRINGAPIWP_agent_menu() {
     </div>
   ';
 
-  $siteValue = $data[1];
-  $template = $data[2];
+  $siteValue = $data['sitename'];
+  $template = $data['template'];
 
   if ($template == '') {
     $template = $default_template;
@@ -480,7 +438,7 @@ function SPRINGAPIWP_agent_menu() {
       <h2 style="display: inline;">API Key:</h2>
       <p style="display: inline;">Keys are available at <a href="http://developer.solidearth.com">SolidEarth</a>. The installed Key is a SandBox Key returning faked data for testing.</p>
       <br />
-      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data[0] . '">
+      <input style="margin-top: 10px;" type="text" name="apikey" value="' . $data['api_key'] . '">
       <br>
 
       <h2>Template:</h2>

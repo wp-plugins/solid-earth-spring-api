@@ -1,14 +1,14 @@
 <?php
 /**
  * @package spring-api
- * @version 1.3.1
+ * @version 1.3.3
  */
 /*
 Plugin Name: Solid Earth SPRING API
 Plugin URI: http://wordpress.org/plugins/solid-earth-spring-api/
 Description: Solid Earth SPRING API.
 Author: Solid Earth
-Version: 1.3.2
+Version: 1.3.3
 Author URI: http://solidearth.com/
 */
 

@@ -5,19 +5,13 @@ require_once 'store.php';
 add_shortcode( 'spring-slider', 'SPRINGAPIWP_render_slider' );
 
 function SPRINGAPIWP_render_slider( $atts ){
-  $data = SPRINGAPIWP_get_data('spring.txt');
-  $key = $data[0];
+  $data = SPRINGAPIWP_get_data('spring_settings');
+  $key = $data['api_key'];
 
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $key = $sesa_apikey;
-  }
-  // End.
-  
-  $siteValue = $data[1];
-  $template = $data[2];
-  $ids = explode("\n", $data[3]);
+
+  $siteValue = $data['sitename'];
+  $template = $data['template'];
+  $ids = explode("\n", $data['ids']);
 
   $results = array();
 
@@ -72,20 +66,13 @@ add_shortcode('quick-search', 'SPRINGAPIWP_render_quick_search');
 function SPRINGAPIWP_render_quick_search ( $atts ) {
   if(isset($_GET['property_type']) || isset($atts['name'])) {
     //TO DO: pin in the advanced search bar
-    $data = SPRINGAPIWP_get_data('quickSearch.txt');
-    $key = $data[0];
+    $data = SPRINGAPIWP_get_data('quicksearch_settings');
 
-    // YF 27-08-2015 Start.
-    $sesa_apikey = get_option( 'sesa_apikey' );
-    if ( $sesa_apikey ) {
-      $key = $sesa_apikey;
-    }
-    // End.
-    
-    $siteValue = $data[1];
-    $template = $data[2];
 
-    $results = SPRINGAPIWP_quick_search($key, $_GET, isset($atts["name"]) ? $atts["name"] : "" ,false, $siteValue);
+    $siteValue = $data['sitename'];
+    $template = $data['template'];
+
+    $results = SPRINGAPIWP_quick_search($data['api_key'], $_GET, isset($atts["name"]) ? $atts["name"] : "" ,false, $siteValue);
 
     //currently the Solid Earth API returns 20 by default
     $solidEarthPageLength = 20;
@@ -203,12 +190,19 @@ function SPRINGAPIWP_render_quick_search ( $atts ) {
   }
 }
 
+function SPRINGAPIWP_get_property_types($key, $sandbox = true,$site ='baarmls') {
+  $url = trailingslashit(SPRINGAPIWP_spring_endpoint('search', $sandbox, $site)).'propertyType';
+  $ptj = SPRINGAPIWP_get_json($key, $url, $qs);
+  return (isset($ptj['propertyTypes'])) ? $ptj['propertyTypes'] : array();
+}
+
 function SPRINGAPIWP_search_form($searchType) {
   $serverURLArray = explode("?", "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", 2) ;
   $server_host = $serverURLArray[0];
+  $settings = SPRINGAPIWP_get_data('quicksearch_settings');
+  $propertyTypes = SPRINGAPIWP_get_property_types($settings['api_key'],false,$settings['sitename']);
 
   if($searchType === 'advanced') {
-    $propertyTypes = array('Single Family', 'Condo', 'Townhouse');
     $bedroomTypes = array(1, 2, 3, 4, 5, 6);
     $bathroomTypes = array(1, 2, 3, 4, 5, 6);
 
@@ -218,7 +212,6 @@ function SPRINGAPIWP_search_form($searchType) {
             <div class="spring-advanced-search-text-entries">
               <select id="spring-advanced-property-select" name="property_type" data-placeholder="Property Type">
                 <option value="" disabled="">Property Type</option>';
-
                 foreach($propertyTypes as $value) {
                   if($_GET['property_type'] == $value) {
                     $html .= '<option value="' . $value . '" selected="selected">' . $value . '</option>';
@@ -325,11 +318,16 @@ function SPRINGAPIWP_search_form($searchType) {
         <br />
 
         <select id="spring-quick-property-select" name="property_type" class="spring-search-field" data-placeholder="Property Type">
-          <option value="" disabled="">Property Type</option>
-          <option value="Single Family">Single Family Residence</option>
-          <option value="Condo">Condominium</option>
-          <option value="Townhouse">Townhouse</option>
-        </select>
+          <option value="" disabled="">Property Type</option>';
+                foreach($propertyTypes as $value) {
+                  if($_GET['property_type'] == $value) {
+                    $html .= '<option value="' . $value . '" selected="selected">' . $value . '</option>';
+                  }
+                  else {
+                    $html .= '<option value="' . $value . '">' . $value . '</option>';
+                  }
+                }
+        $html .= '</select>
         <br />
 
         <input type="text" id="spring-keyword" name="keyword" class="spring-search-field spring-full" value="" placeholder="Address, MLS#, Keywords">
@@ -449,20 +447,14 @@ function SPRINGAPIWP_render_full ( $atts ){
     }
   }
 
-  $data = SPRINGAPIWP_get_data('listingRender.txt');
-  $key = $data[0];
+  $data = SPRINGAPIWP_get_data('listing_settings');
+  $key = $data['api_key'];
 
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $key = $sesa_apikey;
-  }
-  // End.
-  
-  $siteValue = $data[1];
-  $template = $data[2];
-  $telephone = $data[3];
-  $googleMapsKey = $data[4];
+
+  $siteValue = $data['sitename'];
+  $template = $data['template'];
+  $telephone = $data['telephone'];
+  $googleMapsKey = $data['googleMapsKey'];
 
   $results = array();
 
@@ -489,19 +481,13 @@ function SPRINGAPIWP_render_full ( $atts ){
 add_shortcode('agent-listing', 'SPRINGAPIWP_agent_render');
 
 function SPRINGAPIWP_agent_render ( $atts, $content, $sc ) {
-  $data = SPRINGAPIWP_get_data('agentPage.txt');
+  $data = SPRINGAPIWP_get_data('agent_settings');
 
-  $key = $data[0];
+  $key = $data['api_key'];
 
-  // YF 27-08-2015 Start.
-  $sesa_apikey = get_option( 'sesa_apikey' );
-  if ( $sesa_apikey ) {
-    $key = $sesa_apikey;
-  }
-  // End.
-  
-  $siteValue = $data[1];
-  $template = $data[2];
+
+  $siteValue = $data['sitename'];
+  $template = $data['template'];
 
   $name = str_replace(" ", ",", $atts["name"]) ;
 

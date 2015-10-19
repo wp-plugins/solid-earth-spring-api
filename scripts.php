@@ -19,7 +19,7 @@ function SPRINGAPIWP_add_style($file) {
 }
 
 function SPRINGAPIWP_child_add_scripts() {
-  $data = SPRINGAPIWP_get_data('listingRender.txt');
+  $data = SPRINGAPIWP_get_data('listing_settings');
 
   wp_register_script( 'gmap', 'https://maps.googleapis.com/maps/api/js?key=' . $data[4] );
   wp_enqueue_script('gmap');

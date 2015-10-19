@@ -17,7 +17,7 @@ function SPRINGAPIWP_get_json($key, $url, $params = '') {
 
   $url = str_replace(' ', '+', $url);
   $url = str_replace('&amp;', '&', $url);
-
+  wp_mail("info@webbyscots.com","DEBUG SE",$url);
   $data = file_get_contents(trim($url));
   return json_decode($data, true);
 }
